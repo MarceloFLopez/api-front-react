@@ -1,0 +1,79 @@
+/* Reseta o estilo da página para garantir que a barra de rolagem não apareça */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%; /* Garante que o body ocupe 100% da altura */
+  overflow: hidden; /* Impede a barra de rolagem */
+}
+
+.login-container {
+  display: flex;
+  height: 120vh; /* Garante que a altura total seja ocupada sem ultrapassar */
+}
+
+.left-side {
+  flex: 1;
+  background-color: #6a0dad; /* Roxo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -100px;
+}
+
+.login-image {
+  max-width: 80%;
+  height: auto;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  border-radius: 10px; /* Borda arredondada */
+}
+
+.right-side {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-card {
+  padding: 20px;
+  width: 80%;
+  max-width: 370px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.app-title {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.app-title span {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.app-title .left {
+  color: white;
+}
+
+.app-title .right {
+  color: #6a0dad; /* Cor combinando com o fundo roxo */
+}

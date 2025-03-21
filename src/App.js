@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./auth/Login";
+import Dashboard from "./components/Dashboard";
+import Categorias from "./pages/Categorias";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import DashboardLayout from "./components/DashboardLayout";
+import { AuthProvider } from "./auth/AuthContext";
+import AcessoNegado from "./pages/AcessoNegado"; // Nova página
+import NotFound from "./pages/NotFound"; // Página de erro 404
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Rota pública para login */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Rota para Dashboard e Categorias com acesso controlado */}
+          <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+            <Route element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/categorias" element={<Categorias />} />
+            </Route>
+          </Route>
+
+          {/* Página de Acesso Negado */}
+          <Route path="/acesso-negado" element={<AcessoNegado />} />
+
+          {/* Página 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
-}
+};
 
 export default App;

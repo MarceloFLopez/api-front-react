@@ -1,0 +1,76 @@
+/* Mantém a tela fixa e permite rolagem na tabela */
+.categorias-container {
+  margin: 2px auto;
+  padding: 2px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  height: 90vh; /* Define uma altura fixa para a tela */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Criando área de rolagem para a tabela */
+.tabela-wrapper {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 60vh; /* Define um limite de altura com rolagem */
+  border: 1px solid #ddd;
+}
+
+/* Ajuste da tabela para não quebrar */
+.categorias-tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.categorias-tabela th,
+.categorias-tabela td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.categorias-tabela th {
+  background-color: #ffffff;
+  color: rgb(148, 143, 143);
+}
+
+/* Botões */
+.btn-editar,
+.btn-excluir {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-editar {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-excluir {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Estilo para mensagens de erro e quando a tabela está vazia */
+.erro-mensagem {
+  color: red;
+  font-weight: bold;
+}
+
+.categorias-vazio {
+  text-align: center;
+  font-style: italic;
+  color: gray;
+}
+
+.cat_id{
+  width: 5%;
+}
+.cat_action{
+  width: 10%;
+}

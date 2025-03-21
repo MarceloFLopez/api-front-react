@@ -1,0 +1,46 @@
+/* Header.css */
+
+.header {
+  position: fixed; /* Fixa o header no topo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Garante que fique acima dos outros elementos */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Efeito sutil de sombra */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 40px; /* Ajuste a altura conforme necessário */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espaço entre o email e o botão de logout */
+}
+
+.user-email {
+  font-size: 1rem;
+  color: #333;
+}
+
+button {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* 🔹 Ajuste para evitar que o conteúdo fique escondido atrás do header */
+body {
+  padding-top: 60px; /* O mesmo valor da altura do header */
+}

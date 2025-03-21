@@ -1,0 +1,100 @@
+/* Sidebar.css */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 180px;
+  background-color: #f8f9fa; /* Cor clara para combinar com o header */
+  color: #333;
+  border-right: 2px solid #ddd;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #343a40;
+  padding-bottom: 25px;
+  border-bottom: 2px solid #ddd;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 40px; /* Ajuste a altura conforme necessário */
+}
+.container{
+  margin-top: 4rem;
+}
+.sidebar .sidebar-links {
+  flex-grow: 1;
+  padding-top: 20px;
+}
+
+.sidebar .sidebar-link {
+  color: #333;
+  font-size: 18px;
+  padding: 12px 20px;
+  display: block;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.sidebar .sidebar-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.sidebar .sidebar-link.active {
+  background-color: #0056b3;
+  font-weight: bold;
+}
+
+/* Estilo da parte inferior (Logout e Email) */
+.sidebar-footer {
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.user-email {
+  font-size: 1rem;
+  color: #555;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}
