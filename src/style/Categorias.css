@@ -1,24 +1,34 @@
-/* Mantém a tela fixa e permite rolagem na tabela */
+/* Estilos para o contêiner principal */
 .categorias-container {
   margin: 2px auto;
   padding: 2px;
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  height: 90vh; /* Define uma altura fixa para a tela */
+  height: calc(100vh - 120px); /* Ajuste a altura conforme necessário */
   display: flex;
   flex-direction: column;
 }
 
-/* Criando área de rolagem para a tabela */
+/* Estilos para o wrapper da tabela */
 .tabela-wrapper {
   flex-grow: 1;
-  overflow-y: auto;
-  max-height: 60vh; /* Define um limite de altura com rolagem */
+  overflow-y: auto; /* Scroll vertical */
+  max-height: calc(100vh - 200px); /* Ajuste a altura máxima */
   border: 1px solid #ddd;
+  margin-bottom: 10px; /* Espaçamento abaixo da tabela */
 }
 
-/* Ajuste da tabela para não quebrar */
+/* Estilos para o footer */
+footer {
+  margin-top: auto; /* Garante que o footer fique no final */
+  background-color: #f4f4f4; /* Cor de fundo do footer */
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+/* Estilos para a tabela */
 .categorias-tabela {
   width: 100%;
   border-collapse: collapse;
@@ -34,43 +44,137 @@
 .categorias-tabela th {
   background-color: #ffffff;
   color: rgb(148, 143, 143);
+  position: sticky; /* Fixa o cabeçalho durante o scroll */
+  top: 0; /* Posiciona o cabeçalho no topo */
+  z-index: 1; /* Garante que o cabeçalho fique acima das células */
 }
 
-/* Botões */
-.btn-editar,
-.btn-excluir {
+.btn-editar {
   padding: 5px 10px;
   margin: 0 5px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  background-color: #4caf50; /* Cor verde */
+  color: white; /* Texto branco */
 }
 
-.btn-editar {
-  background-color: #28a745;
-  color: white;
+.btn-editar:hover {
+  background-color: #45a049; /* Cor verde mais escura no hover */
 }
 
-.btn-excluir {
-  background-color: #dc3545;
-  color: white;
-}
-
-/* Estilo para mensagens de erro e quando a tabela está vazia */
 .erro-mensagem {
   color: red;
   font-weight: bold;
+  margin-bottom: 10px; /* Espaçamento abaixo da mensagem */
 }
 
 .categorias-vazio {
   text-align: center;
-  font-style: italic;
+  font-family: Arial, sans-serif; /* Corrigi o uso de font-style */
   color: gray;
+  padding: 20px; /* Espaçamento interno */
 }
 
-.cat_id{
+.cat_id {
   width: 5%;
+  text-align: center;
+  justify-content: center;
 }
-.cat_action{
-  width: 10%;
+
+.cat_action {
+  align-items: center;
+  justify-content: center;
+  width: 6%;
+  text-align: center; /* Centraliza o conteúdo */
+}
+
+/* Estilos para o cabeçalho */
+.categorias-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn-novo {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-novo:hover {
+  background-color: #45a049;
+}
+
+.input-busca {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilos para o modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Garante que o modal fique acima de tudo */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%; /* Largura responsiva */
+  max-width: 400px; /* Largura máxima */
+  text-align: center;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-botoes {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+.modal-botoes button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1; /* Distribui o espaço igualmente entre os botões */
+}
+
+.modal-botoes button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.modal-botoes button:first-child:hover {
+  background-color: #45a049;
+}
+
+.modal-botoes button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.modal-botoes button:last-child:hover {
+  background-color: #e53935;
 }

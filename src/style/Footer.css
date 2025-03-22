@@ -2,7 +2,6 @@
   background-color: #f8f9fa; /* Cor de fundo suave */
   padding: 8px 0; /* Reduzi o padding para ocupar menos espaço */
   border-top: 1px solid #e0e0e0; /* Linha de separação */
-  position: fixed; /* Fixa o footer na parte inferior */
   bottom: 0;
   width: 100%; /* Ocupa toda a largura da tela */
   text-align: center;

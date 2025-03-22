@@ -5,7 +5,7 @@ import { Form, Button, Alert, Card, Spinner } from "react-bootstrap";
 import "../style/Login.css";
 import nootbookImg from "../img/nootbook.png";
 
-const Login = () => {
+const  Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState(null);

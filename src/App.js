@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./auth/Login";
 import Dashboard from "./components/Dashboard";
 import Categorias from "./pages/Categorias";
@@ -13,11 +13,14 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Routes>
+          {/* Redireciona o caminho raiz para /login */}
+          <Route path="/" element={<Navigate to="/login" />} />
+
           {/* Rota pública para login */}
           <Route path="/login" element={<Login />} />
 
           {/* Rota para Dashboard e Categorias com acesso controlado */}
-          <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+          <Route element={<ProtectedRoute allowedRoles/>}>
             <Route element={<DashboardLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/categorias" element={<Categorias />} />
