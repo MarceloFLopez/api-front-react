@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 180px;
+  width: 190px;
   background-color: #f8f9fa; /* Cor clara para combinar com o header */
   color: #333;
   border-right: 2px solid #ddd;
@@ -37,23 +37,23 @@
 .container{
   margin-top: 4rem;
 }
-.sidebar .sidebar-links {
-  flex-grow: 1;
-  padding-top: 20px;
-}
 
 .sidebar .sidebar-link {
+  flex-grow: 1;
+  padding-top: 20px;
   color: #333;
   font-size: 18px;
   padding: 12px 20px;
   display: block;
-  text-decoration: none;
   border-radius: 5px;
+  align-items: center; /* Alinha ícone e texto verticalmente */
+  text-decoration: none; /* Remove sublinhado dos links */
+  transition: background-color 0.3s ease; 
 }
 
-.sidebar .sidebar-link:hover {
-  background-color: #007bff;
-  color: white;
+.sidebar-link:hover {
+  background-color: #e9ecef; /* Cor de fundo ao passar o mouse */
+  border-radius: 5px; /* Bordas arredondadas */
 }
 
 .sidebar .sidebar-link.active {
@@ -61,6 +61,10 @@
   font-weight: bold;
 }
 
+.sidebar-icon {
+  margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+  font-size: 16px; /* Tamanho dos ícones */
+}
 /* Estilo da parte inferior (Logout e Email) */
 .sidebar-footer {
   border-top: 2px solid #ddd;

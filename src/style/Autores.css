@@ -1,5 +1,5 @@
 /* Estilos para o contêiner principal */
-.categorias-container {
+.autores-container {
   margin-left: 8px !important;
   padding: 2px;
   background-color: #fff;
@@ -29,19 +29,19 @@ footer {
 }
 
 /* Estilos para a tabela */
-.categorias-tabela {
+.autores-tabela {
   width: 100%;
   border-collapse: collapse;
 }
 
-.categorias-tabela th,
-.categorias-tabela td {
+.autores-tabela th,
+.autores-tabela td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: left;
 }
 
-.categorias-tabela th {
+.autores-tabela th {
   background-color: #ffffff;
   color: rgb(148, 143, 143);
   position: sticky; /* Fixa o cabeçalho durante o scroll */
@@ -69,7 +69,7 @@ footer {
   margin-bottom: 10px; /* Espaçamento abaixo da mensagem */
 }
 
-.categorias-vazio {
+.autores-vazio {
   text-align: center;
   font-family: Arial, sans-serif; /* Corrigi o uso de font-style */
   color: gray;
@@ -90,7 +90,7 @@ footer {
 }
 
 /* Estilos para o cabeçalho */
-.categorias-header {
+.autores-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -104,7 +104,6 @@ footer {
   cursor: pointer;
   border-radius: 5px;
 }
-
 
 .btn-novo:hover {
   background-color: #45a049;
