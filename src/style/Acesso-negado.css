@@ -1,0 +1,61 @@
+.acesso-negado{
+  justify-content: center;
+  text-align: center;
+}
+
+.erro404-img{
+  max-width: 600px; /* Reduz a largura do imagem para ocupar menos espaço */
+  margin: 0 auto; /* Centraliza a imagem */
+ justify-content: center;
+}
+
+/* Estilos para o footer */
+Footer {
+  .footer {
+    background-color: #f8f9fa; /* Cor de fundo suave */
+    padding: 8px 0; /* Reduzi o padding para ocupar menos espaço */
+    border-top: 1px solid #e0e0e0; /* Linha de separação */
+    bottom: 0;
+    width: 100%; /* Ocupa toda a largura da tela */
+    text-align: center;
+    font-size: 14px; /* Fonte menor para manter a proporção */
+  }
+  
+  .footer p {
+    margin: 0;
+  }
+  
+  .footer-links a {
+    color: #007bff; /* Cor azul do link */
+    text-decoration: none;
+    font-size: 13px; /* Deixei menor para ocupar menos espaço */
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer .list-inline {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+  }
+  
+  .footer .list-inline-item {
+    display: inline;
+    margin: 0 8px; /* Espaçamento menor entre os itens */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .footer {
+      font-size: 12px; /* Fonte menor para telas pequenas */
+      padding: 5px 0;
+    }
+  
+    .footer-links a {
+      font-size: 12px;
+    }
+  }
+  
+}

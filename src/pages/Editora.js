@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../style/Editoras.css";
 import Sidebar from "../components/Sidebar";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,6 +16,7 @@ const Editoras = () => {
   const [modalTipo, setModalTipo] = useState(null); // 'editar' ou 'novo'
   const [editoraEditando, setEditoraEditando] = useState({ id: null, nome: "" });
   const [busca, setBusca] = useState("");
+  const navigate = useNavigate();
 
   // Buscar editoras da API
   useEffect(() => {
@@ -35,7 +36,8 @@ const Editoras = () => {
         });
 
         if (response.status === 403) {
-          return <Navigate to="/acesso-negado" />;
+          navigate('/acesso-negado');
+          return;
         }
 
         const data = await response.json();
@@ -53,7 +55,7 @@ const Editoras = () => {
     };
 
     fetchEdioras();
-  }, []);
+  }, [navigate]);
 
   // Abrir modal para editar
   const abrirModalEditar = (editora) => {

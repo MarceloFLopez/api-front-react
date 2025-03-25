@@ -1,9 +1,9 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container,  Row, Col } from "react-bootstrap";
-import Header from "../components/Header"; 
+import { Container, Row, Col } from "react-bootstrap";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../style/Dashboard.css";// Certifique-se de que o Header já está configurado
+import "../style/Dashboard.css"; // Certifique-se de que o Header já está configurado
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -18,14 +18,16 @@ const Dashboard = () => {
     <div>
       {/* Incluindo o Header */}
       <Header />
-      <Container className="dashboard-content">
-        <Row>
-          <Col>
-            <h1>Bem-vindo ao Dashboard</h1>
-            <h2>Conteudo aqui</h2>
-          </Col>
-        </Row>
-      </Container>
+      <main>
+        <Container className="dashboard-content">
+          <Row>
+            <Col>
+              <h1>Bem-vindo ao Dashboard</h1>
+              <h2>Conteudo aqui</h2>
+            </Col>
+          </Row>
+        </Container>
+      </main>
       <Footer />
     </div>
   );

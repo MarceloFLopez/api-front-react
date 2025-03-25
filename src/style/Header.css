@@ -21,7 +21,8 @@
 }
 
 .logo-img {
-  height: 40px; /* Ajuste a altura conforme necessário */
+  height: 100px;
+  width: 80px;
 }
 
 .header-right {

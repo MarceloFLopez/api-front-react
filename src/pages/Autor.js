@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../style/Autores.css";
 import Sidebar from "../components/Sidebar";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,6 +16,7 @@ const Autores = () => {
   const [modalTipo, setModalTipo] = useState(null); // 'editar' ou 'novo'
   const [autorEditando, setAutorEditando] = useState({ id: null, nome: "" });
   const [busca, setBusca] = useState("");
+  const navigate = useNavigate();
 
   // Buscar autores da API
   useEffect(() => {
@@ -35,7 +36,8 @@ const Autores = () => {
         });
 
         if (response.status === 403) {
-          return <Navigate to="/acesso-negado" />;
+          navigate("/acesso-negado")
+          return; 
         }
 
         const data = await response.json();
@@ -53,7 +55,7 @@ const Autores = () => {
     };
 
     fetchAutores();
-  }, []);
+  }, [navigate]);
 
   // Abrir modal para editar
   const abrirModalEditar = (autor) => {

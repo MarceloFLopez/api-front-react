@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../style/Categorias.css";
 import Sidebar from "../components/Sidebar";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,7 +16,7 @@ const Categorias = () => {
   const [modalTipo, setModalTipo] = useState(null); // 'editar' ou 'novo'
   const [categoriaEditando, setCategoriaEditando] = useState({ id: null, nome: "" });
   const [busca, setBusca] = useState("");
-
+  const navigate = useNavigate();
   // Buscar categorias da API
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -35,7 +35,8 @@ const Categorias = () => {
         });
 
         if (response.status === 403) {
-          return <Navigate to="/acesso-negado" />;
+          navigate("/acesso-negado")
+          return; 
         }
 
         const data = await response.json();
@@ -53,7 +54,7 @@ const Categorias = () => {
     };
 
     fetchCategorias();
-  }, []);
+  }, [navigate]);
 
   // Abrir modal para editar
   const abrirModalEditar = (categoria) => {

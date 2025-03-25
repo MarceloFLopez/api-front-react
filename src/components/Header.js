@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import edicasewebimg from '../img/edicaseweb-no-bg.png';
 import "../style/Header.css"; // Adicione um arquivo CSS separado para customizações
 
 const Header = () => {
@@ -99,6 +100,7 @@ const handleLogout = async () => {
     }
 
     localStorage.removeItem("token");
+    console.clear(0);
     navigate("/login");
   } catch (error) {
     console.error("Erro ao tentar fazer logout:", error);
@@ -109,7 +111,7 @@ const handleLogout = async () => {
   return (
     <header className="header">
       <div className="logo">
-        <img src="/path/to/logo.png" alt="Logo" className="logo-img" />
+        <img src={edicasewebimg} alt="Login" className="logo-img" />
       </div>
 
       <div className="header-right">
