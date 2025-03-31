@@ -6,7 +6,7 @@ import "../style/Autores.css";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Autores = () => {
   const [autores, setAutores] = useState([]);
@@ -127,70 +127,84 @@ const Autores = () => {
     <>
       <Header />
       <Sidebar />
-      <main>
+      <main className="main-content">
         <div className="autores-container">
-          <h2>Lista de Autores</h2>
-          <div className="autores-header">
-            <button onClick={abrirModalNovo} className="btn-novo">
-              <FontAwesomeIcon icon={faPlus} /> Novo Autor
-            </button>
-            <input
-              type="text"
-              placeholder="Buscar Autor..."
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              className="input-busca"
-            />
+            <h2>Lista de Autores</h2>
+          <div className="header-with-search">
+          <button onClick={abrirModalNovo} className="btn-novo">
+            <FontAwesomeIcon icon={faPlus} /> Novo Autor
+          </button>
+            <div className="search-container">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar autores..."
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                className="search-input"
+              />
+            </div>
           </div>
-          {mensagem && <p className="erro-mensagem">{mensagem}</p>}
-  
-          {loading ? (
-            <p>Carregando...</p>
-          ) : (
-            <div className="tabela-wrapper">
-              <table className="autores-tabela">
+          
+
+          {mensagem && <div className="mensagem">{mensagem}</div>}
+
+          <div className="table-container">
+            <div className="table-header">
+              <table className="autores-table">
                 <thead>
                   <tr>
-                    <th className="cat_id">ID</th>
-                    <th className="cat_name">Autores</th>
-                    <th className="cat_action">Ações</th>
+                    <th className="th_id">ID</th>
+                    <th className="th_nome">Nome</th>
+                    <th className="th_acao">Ações</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {autoresFiltradas.length > 0 ? (
-                    autoresFiltradas.map((autor) => (
-                      <tr key={autor.id}>
-                        <td className="cat_id">{autor.id}</td>
-                        <td>{autor.nome}</td>
-                        <td className="cat_action">
-                          <button
-                            className="btn-editar"
-                            onClick={() => abrirModalEditar(autor)}
-                          >
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="Autores-vazio">
-                        Nenhuma autor encontrada.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
               </table>
             </div>
-          )}
+            
+            <div className="table-body">
+              {loading ? (
+                <div className="loading-skeleton">
+                  {[...Array(8)].map((_, i) => (
+                    <div key={i} className="skeleton-row" />
+                  ))}
+                </div>
+              ) : (
+                <table className="autores-table">
+                  <tbody>
+                    {autoresFiltradas.length > 0 ? (
+                      autoresFiltradas.map((autor) => (
+                        <tr key={autor.id}>
+                          <td className="tbody_id">{autor.id}</td>
+                          <td className="tbody_nome">{autor.nome}</td>
+                          <td>
+                            <button
+                              className="btn-editar tbody_btn" 
+                              onClick={() => abrirModalEditar(autor)}
+                            >
+                              <FontAwesomeIcon icon={faPenToSquare} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className="no-results">
+                        <td colSpan="3">Nenhum autor encontrado</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
-  
-      {/* Modal para Editar/Criar autores */}
+
+      {/* Modal (PERMANECE EXATAMENTE IGUAL) */}
       {modalAberto && (
         <div className="modal-overlay">
-          <div className="modal-content">
+          <div className="modal-contents">
             <h2>{modalTipo === "editar" ? "Editar Autor" : "Novo Autor"}</h2>
             <input
               type="text"

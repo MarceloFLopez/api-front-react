@@ -6,7 +6,7 @@ import "../style/Categorias.css";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Categorias = () => {
   const [categorias, setCategorias] = useState([]);
@@ -17,7 +17,7 @@ const Categorias = () => {
   const [categoriaEditando, setCategoriaEditando] = useState({ id: null, nome: "" });
   const [busca, setBusca] = useState("");
   const navigate = useNavigate();
-  // Buscar categorias da API
+
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
@@ -63,7 +63,7 @@ const Categorias = () => {
     setModalAberto(true);
   };
 
-  // Abrir modal para nova categoria
+  // Abrir modal para novo autor
   const abrirModalNovo = () => {
     setCategoriaEditando({ id: null, nome: "" });
     setModalTipo("novo");
@@ -77,8 +77,8 @@ const Categorias = () => {
     setModalTipo(null);
   };
 
-  // Salvar categoria (editar ou criar)
-  const salvarCategoria = async () => {
+  // Salvar autor (editar ou criar)
+  const salvarAutor = async () => {
     try {
       const token = localStorage.getItem("token");
       const url =
@@ -98,7 +98,6 @@ const Categorias = () => {
       });
 
       if (response.ok) {
-        // Recarregar a lista de categorias
         const data = await response.json();
         if (modalTipo === "editar") {
           setCategorias((prev) =>
@@ -109,15 +108,14 @@ const Categorias = () => {
         }
         fecharModal();
       } else {
-        setMensagem("Erro ao salvar categoria.");
+        setMensagem("Erro ao salvar autor.");
       }
     } catch (error) {
-      console.error("Erro ao salvar categoria:", error);
-      setMensagem("Erro ao salvar categoria. Tente novamente.");
+      console.error("Erro ao salvar autor:", error);
+      setMensagem("Erro ao salvar autor. Tente novamente.");
     }
   };
 
-  // Filtrar categorias
   const categoriasFiltradas = categorias.filter((categoria) =>
     categoria.nome.toLowerCase().includes(busca.toLowerCase())
   );
@@ -126,71 +124,85 @@ const Categorias = () => {
     <>
       <Header />
       <Sidebar />
-      <main>
+      <main className="main-content">
         <div className="categorias-container">
-          <h2>Lista de Categorias</h2>
-          <div className="categorias-header">
-            <button onClick={abrirModalNovo} className="btn-novo">
-              <FontAwesomeIcon icon={faPlus} /> Nova Categoria
-            </button>
-            <input
-              type="text"
-              placeholder="Buscar categoria..."
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              className="input-busca"
-            />
+            <h2>Lista de Categorias</h2>
+          <div className="header-with-search">
+          <button onClick={abrirModalNovo} className="btn-novo">
+            <FontAwesomeIcon icon={faPlus} /> Novo Autor
+          </button>
+            <div className="search-container">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar categorias..."
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                className="search-input"
+              />
+            </div>
           </div>
-          {mensagem && <p className="erro-mensagem">{mensagem}</p>}
-  
-          {loading ? (
-            <p>Carregando...</p>
-          ) : (
-            <div className="tabela-wrapper">
-              <table className="categorias-tabela">
+          
+
+          {mensagem && <div className="mensagem">{mensagem}</div>}
+
+          <div className="table-container">
+            <div className="table-header">
+              <table className="categorias-table">
                 <thead>
                   <tr>
-                    <th className="cat_id">ID</th>
-                    <th className="cat_name">Categoria</th>
-                    <th className="cat_action">Ações</th>
+                    <th className="th_id">ID</th>
+                    <th className="th_nome">Nome</th>
+                    <th className="th_acao">Ações</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {categoriasFiltradas.length > 0 ? (
-                    categoriasFiltradas.map((categoria) => (
-                      <tr key={categoria.id}>
-                        <td className="cat_id">{categoria.id}</td>
-                        <td>{categoria.nome}</td>
-                        <td className="cat_action">
-                          <button
-                            className="btn-editar"
-                            onClick={() => abrirModalEditar(categoria)}
-                          >
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="categorias-vazio">
-                        Nenhuma categoria encontrada.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
               </table>
             </div>
-          )}
+            
+            <div className="table-body">
+              {loading ? (
+                <div className="loading-skeleton">
+                  {[...Array(8)].map((_, i) => (
+                    <div key={i} className="skeleton-row" />
+                  ))}
+                </div>
+              ) : (
+                <table className="categorias-table">
+                  <tbody>
+                    {categoriasFiltradas.length > 0 ? (
+                      categoriasFiltradas.map((autor) => (
+                        <tr key={autor.id}>
+                          <td className="tbody_id">{autor.id}</td>
+                          <td className="tbody_nome">{autor.nome}</td>
+                          <td>
+                            <button
+                              className="btn-editar tbody_btn" 
+                              onClick={() => abrirModalEditar(autor)}
+                            >
+                              <FontAwesomeIcon icon={faPenToSquare} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className="no-results">
+                        <td colSpan="3">Nenhum autor encontrado</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
-  
-      {/* Modal para Editar/Criar Categoria */}
+
+      {/* Modal (PERMANECE EXATAMENTE IGUAL) */}
       {modalAberto && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>{modalTipo === "editar" ? "Editar Categoria" : "Nova Categoria"}</h2>
+          <div className="modal-contents">
+            <h2>{modalTipo === "editar" ? "Editar Autor" : "Novo Autor"}</h2>
             <input
               type="text"
               value={categoriaEditando.nome}
@@ -200,7 +212,7 @@ const Categorias = () => {
               className="modal-input"
             />
             <div className="modal-botoes">
-              <button onClick={salvarCategoria}>Salvar</button>
+              <button onClick={salvarAutor}>Salvar</button>
               <button onClick={fecharModal}>Cancelar</button>
             </div>
           </div>

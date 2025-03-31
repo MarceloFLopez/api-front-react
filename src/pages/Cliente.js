@@ -6,7 +6,7 @@ import "../style/Clientes.css";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Clientes = () => {
   const [clientes, setClientes] = useState([]);
@@ -18,7 +18,6 @@ const Clientes = () => {
   const [busca, setBusca] = useState("");
   const navigate = useNavigate();
 
-  // Buscar clientes da API
   useEffect(() => {
     const fetchClientes = async () => {
       try {
@@ -36,7 +35,7 @@ const Clientes = () => {
         });
 
         if (response.status === 403) {
-          navigate('/acesso-negado');
+          navigate("/acesso-negado")
           return; 
         }
 
@@ -47,8 +46,8 @@ const Clientes = () => {
           setMensagem("Formato de dados inválido.");
         }
       } catch (error) {
-        console.error("Erro ao buscar clientes:", error);
-        setMensagem("Erro ao carregar clientes. Tente novamente mais tarde.");
+        console.error("Erro ao buscar Clientes:", error);
+        setMensagem("Erro ao carregar Clientes. Tente novamente mais tarde.");
       } finally {
         setLoading(false);
       }
@@ -58,13 +57,13 @@ const Clientes = () => {
   }, [navigate]);
 
   // Abrir modal para editar
-  const abrirModalEditar = (cliente) => {
-    setClienteEditando(cliente);
+  const abrirModalEditar = (Cliente) => {
+    setClienteEditando(Cliente);
     setModalTipo("editar");
     setModalAberto(true);
   };
 
-  // Abrir modal para nova Cliente
+  // Abrir modal para novo autor
   const abrirModalNovo = () => {
     setClienteEditando({ id: null, nome: "" });
     setModalTipo("novo");
@@ -78,8 +77,8 @@ const Clientes = () => {
     setModalTipo(null);
   };
 
-  // Salvar cliente (editar ou criar)
-  const salvarCliente = async () => {
+  // Salvar autor (editar ou criar)
+  const salvarAutor = async () => {
     try {
       const token = localStorage.getItem("token");
       const url =
@@ -99,7 +98,6 @@ const Clientes = () => {
       });
 
       if (response.ok) {
-        // Recarregar a lista de clientes
         const data = await response.json();
         if (modalTipo === "editar") {
           setClientes((prev) =>
@@ -110,88 +108,101 @@ const Clientes = () => {
         }
         fecharModal();
       } else {
-        setMensagem("Erro ao salvar cliente.");
+        setMensagem("Erro ao salvar autor.");
       }
     } catch (error) {
-      console.error("Erro ao salvar cliente:", error);
-      setMensagem("Erro ao salvar cliente. Tente novamente.");
+      console.error("Erro ao salvar autor:", error);
+      setMensagem("Erro ao salvar autor. Tente novamente.");
     }
   };
 
-  // Filtrar Clientes
-  const clientesFiltradas = clientes.filter((cliente) =>
-    cliente.nome.toLowerCase().includes(busca.toLowerCase())
+  const clientesFiltradas = clientes.filter((categoria) =>
+    categoria.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
     <>
       <Header />
       <Sidebar />
-      <main>
+      <main className="main-content">
         <div className="clientes-container">
-          <h2>Lista de Clientes</h2>
-          <div className="clientes-header">
-            <button onClick={abrirModalNovo} className="btn-novo">
-              <FontAwesomeIcon icon={faPlus} /> Novo CLiene
-            </button>
-            <input
-              type="text"
-              placeholder="Buscar cliente..."
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              className="input-busca"
-            />
+            <h2>Lista de Clientes</h2>
+          <div className="header-with-search">
+          <button onClick={abrirModalNovo} className="btn-novo">
+            <FontAwesomeIcon icon={faPlus} /> Novo Autor
+          </button>
+            <div className="search-container">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar clientes..."
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                className="search-input"
+              />
+            </div>
           </div>
-          {mensagem && <p className="erro-mensagem">{mensagem}</p>}
-  
-          {loading ? (
-            <p>Carregando...</p>
-          ) : (
-            <div className="tabela-wrapper">
-              <table className="clientes-tabela">
+          
+
+          {mensagem && <div className="mensagem">{mensagem}</div>}
+
+          <div className="table-container">
+            <div className="table-header">
+              <table className="clientes-table">
                 <thead>
                   <tr>
-                    <th className="cat_id">ID</th>
-                    <th className="cat_name">Cliente</th>
-                    <th className="cat_action">Ações</th>
+                    <th className="th_id">ID</th>
+                    <th className="th_nome">Nome</th>
+                    <th className="th_acao">Ações</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {clientesFiltradas.length > 0 ? (
-                    clientesFiltradas.map((cliente) => (
-                      <tr key={cliente.id}>
-                        <td className="cat_id">{cliente.id}</td>
-                        <td>{cliente.nome}</td>
-                        <td className="cat_action">
-                          <button
-                            className="btn-editar"
-                            onClick={() => abrirModalEditar(cliente)}
-                          >
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="clientes-vazio">
-                        Nenhuma Cliente encontrada.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
               </table>
             </div>
-          )}
+            
+            <div className="table-body">
+              {loading ? (
+                <div className="loading-skeleton">
+                  {[...Array(8)].map((_, i) => (
+                    <div key={i} className="skeleton-row" />
+                  ))}
+                </div>
+              ) : (
+                <table className="clientes-table">
+                  <tbody>
+                    {clientesFiltradas.length > 0 ? (
+                      clientesFiltradas.map((autor) => (
+                        <tr key={autor.id}>
+                          <td className="tbody_id">{autor.id}</td>
+                          <td className="tbody_nome">{autor.nome}</td>
+                          <td>
+                            <button
+                              className="btn-editar tbody_btn" 
+                              onClick={() => abrirModalEditar(autor)}
+                            >
+                              <FontAwesomeIcon icon={faPenToSquare} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className="no-results">
+                        <td colSpan="3">Nenhum autor encontrado</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
-  
-      {/* Modal para Editar/Criar cliente */}
+
+      {/* Modal (PERMANECE EXATAMENTE IGUAL) */}
       {modalAberto && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>{modalTipo === "editar" ? "Editar Cliente" : "Novo CLiente"}</h2>
+          <div className="modal-contents">
+            <h2>{modalTipo === "editar" ? "Editar Autor" : "Novo Autor"}</h2>
             <input
               type="text"
               value={clienteEditando.nome}
@@ -201,7 +212,7 @@ const Clientes = () => {
               className="modal-input"
             />
             <div className="modal-botoes">
-              <button onClick={salvarCliente}>Salvar</button>
+              <button onClick={salvarAutor}>Salvar</button>
               <button onClick={fecharModal}>Cancelar</button>
             </div>
           </div>

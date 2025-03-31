@@ -6,21 +6,20 @@ import "../style/Editoras.css";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Editoras = () => {
-  const [editoras, setEditoras] = useState([]);
+  const [editora, setEditoras] = useState([]);
   const [mensagem, setMensagem] = useState("");
   const [loading, setLoading] = useState(true);
   const [modalAberto, setModalAberto] = useState(false);
   const [modalTipo, setModalTipo] = useState(null); // 'editar' ou 'novo'
-  const [editoraEditando, setEditoraEditando] = useState({ id: null, nome: "" });
+  const [editorasEditando, setEditorasditando] = useState({ id: null, nome: "" });
   const [busca, setBusca] = useState("");
   const navigate = useNavigate();
 
-  // Buscar editoras da API
   useEffect(() => {
-    const fetchEdioras = async () => {
+    const fetchEditoras = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -36,8 +35,8 @@ const Editoras = () => {
         });
 
         if (response.status === 403) {
-          navigate('/acesso-negado');
-          return;
+          navigate("/acesso-negado")
+          return; 
         }
 
         const data = await response.json();
@@ -47,26 +46,26 @@ const Editoras = () => {
           setMensagem("Formato de dados inválido.");
         }
       } catch (error) {
-        console.error("Erro ao buscar editoras:", error);
-        setMensagem("Erro ao carregar editoras. Tente novamente mais tarde.");
+        console.error("Erro ao buscar Editoras:", error);
+        setMensagem("Erro ao carregar Editoras. Tente novamente mais tarde.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchEdioras();
+    fetchEditoras();
   }, [navigate]);
 
   // Abrir modal para editar
-  const abrirModalEditar = (editora) => {
-    setEditoraEditando(editora);
+  const abrirModalEditar = (Editoras) => {
+    setEditorasditando(Editoras);
     setModalTipo("editar");
     setModalAberto(true);
   };
 
-  // Abrir modal para nova categoria
+  // Abrir modal para novo autor
   const abrirModalNovo = () => {
-    setEditoraEditando({ id: null, nome: "" });
+    setEditorasditando({ id: null, nome: "" });
     setModalTipo("novo");
     setModalAberto(true);
   };
@@ -74,17 +73,17 @@ const Editoras = () => {
   // Fechar modal
   const fecharModal = () => {
     setModalAberto(false);
-    setEditoraEditando({ id: null, nome: "" });
+    setEditorasditando({ id: null, nome: "" });
     setModalTipo(null);
   };
 
-  // Salvar editora (editar ou criar)
-  const salvarEditora = async () => {
+  // Salvar autor (editar ou criar)
+  const salvarAutor = async () => {
     try {
       const token = localStorage.getItem("token");
       const url =
         modalTipo === "editar"
-          ? `http://localhost:3000/api/editoras/${editoraEditando.id}`
+          ? `http://localhost:3000/api/editoras/${editorasEditando.id}`
           : "http://localhost:3000/api/editoras";
 
       const method = modalTipo === "editar" ? "PUT" : "POST";
@@ -95,113 +94,125 @@ const Editoras = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ nome: editoraEditando.nome }),
+        body: JSON.stringify({ nome: editorasEditando.nome }),
       });
 
       if (response.ok) {
-        // Recarregar a lista de editoras
         const data = await response.json();
         if (modalTipo === "editar") {
           setEditoras((prev) =>
-            prev.map((cat) => (cat.id === editoraEditando.id ? data : cat))
+            prev.map((cat) => (cat.id === editorasEditando.id ? data : cat))
           );
         } else {
           setEditoras((prev) => [...prev, data]);
         }
         fecharModal();
       } else {
-        setMensagem("Erro ao salvar editora.");
+        setMensagem("Erro ao salvar autor.");
       }
     } catch (error) {
-      console.error("Erro ao salvar editora:", error);
-      setMensagem("Erro ao salvar editora. Tente novamente.");
+      console.error("Erro ao salvar autor:", error);
+      setMensagem("Erro ao salvar autor. Tente novamente.");
     }
   };
 
-  // Filtrar editoras
-  const editorasFiltradas = editoras.filter((editora) =>
-    editora.nome.toLowerCase().includes(busca.toLowerCase())
+  const editorasFiltradas = editora.filter((categoria) =>
+    categoria.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
     <>
       <Header />
       <Sidebar />
-      <main>
+      <main className="main-content">
         <div className="editoras-container">
-          <h2>Lista de Editoras</h2>
-          <div className="editoras-header">
-            <button onClick={abrirModalNovo} className="btn-novo">
-              <FontAwesomeIcon icon={faPlus} /> Nova Editora
-            </button>
-            <input
-              type="text"
-              placeholder="Buscar editora..."
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              className="input-busca"
-            />
+            <h2>Lista de Editoras</h2>
+          <div className="header-with-search">
+          <button onClick={abrirModalNovo} className="btn-novo">
+            <FontAwesomeIcon icon={faPlus} /> Novo Autor
+          </button>
+            <div className="search-container">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar editoras..."
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                className="search-input"
+              />
+            </div>
           </div>
-          {mensagem && <p className="erro-mensagem">{mensagem}</p>}
-  
-          {loading ? (
-            <p>Carregando...</p>
-          ) : (
-            <div className="tabela-wrapper">
-              <table className="editoras-tabela">
+          
+
+          {mensagem && <div className="mensagem">{mensagem}</div>}
+
+          <div className="table-container">
+            <div className="table-header">
+              <table className="editoras-table">
                 <thead>
                   <tr>
-                    <th className="cat_id">ID</th>
-                    <th className="cat_name">Editora</th>
-                    <th className="cat_action">Ações</th>
+                    <th className="th_id">ID</th>
+                    <th className="th_nome">Nome</th>
+                    <th className="th_acao">Ações</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {editorasFiltradas.length > 0 ? (
-                    editorasFiltradas.map((editora) => (
-                      <tr key={editora.id}>
-                        <td className="cat_id">{editora.id}</td>
-                        <td>{editora.nome}</td>
-                        <td className="cat_action">
-                          <button
-                            className="btn-editar"
-                            onClick={() => abrirModalEditar(editora)}
-                          >
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="editoras-vazio">
-                        Nenhuma editora encontrada.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
               </table>
             </div>
-          )}
+            
+            <div className="table-body">
+              {loading ? (
+                <div className="loading-skeleton">
+                  {[...Array(8)].map((_, i) => (
+                    <div key={i} className="skeleton-row" />
+                  ))}
+                </div>
+              ) : (
+                <table className="editoras-table">
+                  <tbody>
+                    {editorasFiltradas.length > 0 ? (
+                      editorasFiltradas.map((autor) => (
+                        <tr key={autor.id}>
+                          <td className="tbody_id">{autor.id}</td>
+                          <td className="tbody_nome">{autor.nome}</td>
+                          <td>
+                            <button
+                              className="btn-editar tbody_btn" 
+                              onClick={() => abrirModalEditar(autor)}
+                            >
+                              <FontAwesomeIcon icon={faPenToSquare} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className="no-results">
+                        <td colSpan="3">Nenhum autor encontrado</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
-  
-      {/* Modal para Editar/Criar editora */}
+
+      {/* Modal (PERMANECE EXATAMENTE IGUAL) */}
       {modalAberto && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>{modalTipo === "editar" ? "Editar Editora" : "Nova Editora"}</h2>
+          <div className="modal-contents">
+            <h2>{modalTipo === "editar" ? "Editar Autor" : "Novo Autor"}</h2>
             <input
               type="text"
-              value={editoraEditando.nome}
+              value={editorasEditando.nome}
               onChange={(e) =>
-                setEditoraEditando({ ...editoraEditando, nome: e.target.value })
+                setEditorasditando({ ...editorasEditando, nome: e.target.value })
               }
               className="modal-input"
             />
             <div className="modal-botoes">
-              <button onClick={salvarEditora}>Salvar</button>
+              <button onClick={salvarAutor}>Salvar</button>
               <button onClick={fecharModal}>Cancelar</button>
             </div>
           </div>

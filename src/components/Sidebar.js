@@ -3,6 +3,7 @@ import { Nav } from "react-bootstrap"; // Importando o componente Nav do Bootstr
 import { Link } from "react-router-dom"; // Para navegação entre as páginas
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Importando o componente FontAwesomeIcon
 import {
+  faBook,
   faBookOpen,
   faHome,
   faTags,
@@ -72,6 +73,17 @@ const Sidebar = () => {
                 className="sidebar-icon"
               />{" "}
               Editora
+            </Nav.Link>
+          </Nav.Item>
+
+          <Nav.Item>
+            <Nav.Link as={Link} to="/bancas" className="sidebar-link">
+              <FontAwesomeIcon 
+                icon={faBook}
+                size="sm"
+                className="sidebar-icon"
+              />{" "}
+              Bancas
             </Nav.Link>
           </Nav.Item>
         </div>

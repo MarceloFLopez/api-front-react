@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./auth/Login";
 import Dashboard from "./components/Dashboard";
 import Categorias from "./pages/Categoria";
+import Bancas from "./pages/Banca"; // Nova página
 import Autores from "./pages/Autor";
 import Clientes from "./pages/Cliente"; // Nova página
 import ProtectedRoute from "./auth/ProtectedRoute";
@@ -30,6 +31,7 @@ const App = () => {
               <Route path="/autores" element={<Autores />} />
               <Route path="/clientes" element={<Clientes />} />
               <Route path="/editoras" element={<Editoras />} />
+              <Route path="/bancas" element={<Bancas />} />
             </Route>
           </Route>
 

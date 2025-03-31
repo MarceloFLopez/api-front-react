@@ -1,122 +1,191 @@
-/* Estilos para o contêiner principal */
+/* Estilos base */
+.main-content {
+  padding: 10px;
+  transition: margin-left 0.3s;
+}
+
 .clientes-container {
-  margin-left: 8px !important;
-  padding: 2px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  height: calc(100vh - 120px); /* Ajuste a altura conforme necessário */
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  height: calc(100vh - 160px);
   display: flex;
   flex-direction: column;
 }
 
-/* Estilos para o wrapper da tabela */
-.tabela-wrapper {
-  flex-grow: 1;
-  overflow-y: auto; /* Scroll vertical */
-  max-height: calc(100vh - 200px); /* Ajuste a altura máxima */
-  border: 1px solid #ddd;
-  margin-bottom: 10px; /* Espaçamento abaixo da tabela */
-}
-
-/* Estilos para o footer */
-footer {
-  margin-top: auto; /* Garante que o footer fique no final */
-  background-color: #f4f4f4; /* Cor de fundo do footer */
-  padding: 10px;
-  text-align: center;
-  border-top: 1px solid #ddd;
-}
-
-/* Estilos para a tabela */
-.clientes-tabela {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.clientes-tabela th,
-.clientes-tabela td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.clientes-tabela th {
-  background-color: #ffffff;
-  color: rgb(148, 143, 143);
-  position: sticky; /* Fixa o cabeçalho durante o scroll */
-  top: 0; /* Posiciona o cabeçalho no topo */
-  z-index: 1; /* Garante que o cabeçalho fique acima das células */
-}
-
-.btn-editar {
-  padding: 5px 10px;
-  margin: 0 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  background-color: #4caf50; /* Cor verde */
-  color: white; /* Texto branco */
-}
-
-.btn-editar:hover {
-  background-color: #45a049; /* Cor verde mais escura no hover */
-}
-
-.erro-mensagem {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 10px; /* Espaçamento abaixo da mensagem */
-}
-
-.clientes-vazio {
-  text-align: center;
-  font-family: Arial, sans-serif; /* Corrigi o uso de font-style */
-  color: gray;
-  padding: 20px; /* Espaçamento interno */
-}
-
-.cat_id {
-  width: 5%;
-  text-align: center;
-  justify-content: center;
-}
-
-.cat_action {
-  align-items: center;
-  justify-content: center;
-  width: 6%;
-  text-align: center; /* Centraliza o conteúdo */
-}
-
-/* Estilos para o cabeçalho */
-.clientes-header {
+/* Header e busca */
+.header-with-search {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
+.search-container {
+  position: relative;
+  min-width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0105f1;
+  box-shadow: 0 0 0 2px rgba(1, 5, 241, 0.1);
+}
+
+/* Botão novo */
 .btn-novo {
-  background-color: #4caf50;
+  background-color: #0105f1;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+  align-self: flex-start;
 }
 
 .btn-novo:hover {
-  background-color: #45a049;
+  background-color: #0000cc;
 }
 
-.input-busca {
+/* Tabela e scroll */
+/* Adicione estas regras ao seu arquivo CSS existente */
+
+/* Layout da tabela */
+.clientes-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Coluna ID (10%) */
+.clientes-table th:nth-child(1),
+.clientes-table td:nth-child(1) {
+  width: 10%;
+  padding: 14px 8px;
+}
+
+/* Coluna Nome (80%) */
+.clientes-table th:nth-child(2),
+.clientes-table td:nth-child(2) {
+  width: 80%;
+  padding: 14px 10px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Coluna Ações (10%) */
+.clientes-table th:nth-child(3),
+.clientes-table td:nth-child(3) {
+  width: 10%;
+  padding: 0;
+}
+
+/* Botão de edição */
+.btn-editar {
+  width: 40%;
+  height: 80%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  background-color: #0105f1;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.btn-editar:hover {
+  background-color: #0000cc;
+}
+
+/* Garantir que o cabeçalho mantenha a proporção */
+.table-header .clientes-table {
+  width: 100%;
+}
+
+/* Loading skeleton */
+.loading-skeleton {
   padding: 10px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
-/* Estilos para o modal */
+.skeleton-row {
+  height: 48px;
+  background-color: #f3f3f3;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Mensagens */
+.mensagem {
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.mensagem.erro {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+/* Estado vazio */
+.no-results td {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Barra de scroll */
+.table-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.table-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Modal (estilo permanece igual) */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -127,15 +196,17 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Garante que o modal fique acima de tudo */
+  z-index: 1000;
 }
 
-.modal-content {
+.modal-contents {
+  position: relative;
+  padding: 30px;
+  outline: 0;
+  border-radius: 20px;
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%; /* Largura responsiva */
-  max-width: 400px; /* Largura máxima */
+  width: 80%;
+  max-width: 400px;
   text-align: center;
 }
 
@@ -150,7 +221,7 @@ footer {
 .modal-botoes {
   display: flex;
   justify-content: space-between;
-  gap: 10px; /* Espaçamento entre os botões */
+  gap: 10px;
 }
 
 .modal-botoes button {
@@ -158,7 +229,7 @@ footer {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  flex: 1; /* Distribui o espaço igualmente entre os botões */
+  flex: 1;
 }
 
 .modal-botoes button:first-child {
@@ -177,4 +248,26 @@ footer {
 
 .modal-botoes button:last-child:hover {
   background-color: #e53935;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .header-with-search {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-container {
+    width: 100%;
+  }
+}
+
+tbody td button{
+  width: 100%;
+  height: 100%;
+  margin-left: 30px;
 }
